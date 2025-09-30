@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom glowing border animation */
+@keyframes pulse-slow {
+  0%, 100% { box-shadow: 0 0 10px cyan; }
+  50% { box-shadow: 0 0 20px hotpink; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite;
+}
+
+.glow-purple {
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+}
