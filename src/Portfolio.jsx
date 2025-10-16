@@ -613,7 +613,7 @@ export default function Portfolio() {
       {/* Footer */}
 <footer className="p-6 text-center font-sans bg-black/60 backdrop-blur-md mt-12">
   {/* Navigation Links */}
-  <div className="mb-6 text-sm md:text-base font-medium text-purple-300 space-x-1">
+  <div className="mb-6 text-xs sm:text-sm md:text-base font-medium text-purple-300 space-x-1">
     <a href="#about" className="hover:text-pink-400 transition">About</a>
     <span>|</span>
     <a href="#skills" className="hover:text-pink-400 transition">Skills</a>
