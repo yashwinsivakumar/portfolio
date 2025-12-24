@@ -386,7 +386,7 @@ export default function Portfolio() {
         {
           title: "Higher Education",
           institution: "Informatics Institute of Technology (IIT)",
-          logo: "/Education/westminster.jpeg",
+          logo: "/Achievements/IITlogo.png",
           description:
             "Pursuing BSc (Hons) Computer Science at IIT, affiliated with the University of Westminster. Focused on web development and data analysis.",
         },
@@ -415,7 +415,7 @@ export default function Portfolio() {
 
 {/* Achievements Section */}
 <motion.section
-  id="Achievements"
+  id="Certifications"
   className="p-12 text-center font-serif"
   initial="hidden"
   whileInView="visible"
@@ -424,7 +424,7 @@ export default function Portfolio() {
   transition={{ duration: 0.8 }}
 >
   <h3 className="text-3xl font-extrabold mb-10 text-center tracking-wide text-pink-400 inline-block relative after:content-[''] after:block after:w-1/2 after:mx-auto after:border-b-2 after:border-white after:mt-1">
-    Achievements
+    Certifications
   </h3>
 
   {/* Outer Common Card */}
