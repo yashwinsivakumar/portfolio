@@ -174,7 +174,7 @@ export default function Portfolio() {
           <br />
           <div className="flex flex-row justify-center">
             <a
-              href="/CV.pdf"
+              href="/Yashwin-CV.pdf"
               download
               className="bg-purple-800 text-white px-6 py-3 rounded-full shadow-lg hover:bg-purple-900 transition font-medium tracking-wide font-serif shadow-purple-500/70 hover:shadow-purple-600/90"
               style={{ boxShadow: "0 0 15px 3px rgba(76, 36, 119, 1)" }}
