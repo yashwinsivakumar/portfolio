@@ -204,10 +204,10 @@ export default function Portfolio() {
         </p>
       </motion.section>
 
-      {/* Skills Section */}
+{/* Skills Section */}
 <motion.section
   id="skills"
-  className="p-12 text-center font-serif"
+  className="p-6 sm:p-12 text-center font-serif"
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true, amount: 0.3 }}
@@ -219,7 +219,7 @@ export default function Portfolio() {
   </h3>
 
   {/* Outer Common Card */}
-  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-8 mx-auto w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
+  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-6 sm:p-8 mx-auto w-full sm:w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       
       {/* Languages */}
@@ -276,10 +276,10 @@ export default function Portfolio() {
 
 
 
-      {/* Projects Section */}
+{/* Projects Section */}
 <motion.section
   id="projects"
-  className="p-12 text-center font-serif"
+  className="p-6 sm:p-12 text-center font-serif"
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true, amount: 0.3 }}
@@ -291,7 +291,7 @@ export default function Portfolio() {
   </h3>
 
   {/* Outer Common Card */}
-  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-8 mx-auto w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
+  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-6 sm:p-8 mx-auto w-full sm:w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
       {[
         {
@@ -314,6 +314,13 @@ export default function Portfolio() {
           img: "/projects/portfolio.png",
           pdf: "https://portfolioyashwin.vercel.app",
           tech: ["React", "Tailwind CSS", "Framer Motion", "Vercel"],
+        },
+        {
+          title: "Mozhii.AI",
+          desc: "Sri Lanka’s first Tamil-focused Large Language Model, currently in development, aimed at enabling intelligent Tamil language understanding, generation, and AI-powered applications.",
+          img: "/projects/mozhi.png",
+          pdf: "https://mozhii.online/",
+          tech: ["Python", "TensorFlow", "HuggingFace"],
         },
       ].map((proj, idx) => (
         <motion.div
@@ -362,7 +369,7 @@ export default function Portfolio() {
 {/* Education Section */}
 <motion.section
   id="Education"
-  className="p-12 text-center font-serif"
+  className="p-6 sm:p-12 text-center font-serif"
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true, amount: 0.3 }}
@@ -374,14 +381,21 @@ export default function Portfolio() {
   </h3>
 
   {/* Outer Common Card */}
-  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-8 mx-auto w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
+  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-6 sm:p-8 mx-auto w-full sm:w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
       {[
         {
           title: "Secondary Education",
           institution: "Zahira College Matale",
           logo: "/Education/zahira1.jpeg",
-          description: "Completed G.C.E. O/L successfully and A/L during (2015–2023).",
+          description: "Completed G.C.E. O/L and A/L at Zahira College Matale during (2015–2023).",
+        },
+        {
+          title: "Foundation Education",
+          institution: "Informatics Institute of Technology (IIT)",
+          logo: "/Achievements/IITlogo.png",
+          description:
+            "Completed the Foundation programme in Computing at IIT, with practical experience in Python, database management, and fundamental computing and problem-solving skills.",
         },
         {
           title: "Higher Education",
@@ -413,10 +427,10 @@ export default function Portfolio() {
 
 
 
-{/* Achievements Section */}
+{/* Certifications Section */}
 <motion.section
   id="Certifications"
-  className="p-12 text-center font-serif"
+  className="p-6 sm:p-12 text-center font-serif"
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true, amount: 0.3 }}
@@ -428,7 +442,7 @@ export default function Portfolio() {
   </h3>
 
   {/* Outer Common Card */}
-  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-8 mx-auto w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
+  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-6 sm:p-8 mx-auto w-full sm:w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 font-sans">
       {[
         {
@@ -448,6 +462,12 @@ export default function Portfolio() {
           org: "National Institute of Business Management (NIBM)",
           link: "/Achievements/NIBM.pdf",
           icon: "/Achievements/NIBMlogo.jpg",
+        },
+        {
+          title: "Microsoft Azure Machine Learning Fundamentals",
+          org: "Linked In Learning",
+          link: "/Achievements/LinkedInLearning.jpeg",
+          icon: "/Achievements/linkedinlearning.png",
         },
       ].map((cert, idx) => (
         <motion.div
@@ -481,7 +501,7 @@ export default function Portfolio() {
 {/* Contact Section */}
 <motion.section
   id="contact"
-  className="container mx-auto p-12 text-center font-serif"
+  className="w-full mx-auto p-6 sm:p-12 text-center font-serif"
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true, amount: 0.3 }}
@@ -493,7 +513,7 @@ export default function Portfolio() {
   </h3>
 
   {/* Flex container for form + contact info */}
-  <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 container mx-auto max-w-5xl font-sans">
+  <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 sm:gap-8 mx-auto w-full sm:w-11/12 max-w-5xl font-sans">
     
     {/* Contact Form Card */}
     <motion.div
