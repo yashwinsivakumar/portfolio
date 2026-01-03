@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Custom glowing border animation */
 @keyframes pulse-slow {
   0%, 100% { box-shadow: 0 0 10px cyan; }
@@ -15,3 +19,14 @@
 .glow-purple {
   box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
 }
+
+@keyframes grid-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.35; }
+}
+

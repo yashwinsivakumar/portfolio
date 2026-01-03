@@ -6,6 +6,7 @@ import { VscCode } from "react-icons/vsc";
 import { HiMenu, HiX } from "react-icons/hi";
 import { Typewriter } from "react-simple-typewriter";
 import emailjs from "@emailjs/browser";
+import ParticleBackground from "./components/ParticleBackground";
 
 // Fade-in animation variants
 const fadeInUp = {
@@ -80,8 +81,10 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950 to-purple-800 text-gray-50 font-sans transition-colors duration-500">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-950 to-purple-900 text-gray-50 font-sans transition-colors duration-500">
       
+      <ParticleBackground />
+
     {/* Fixed Navbar */}
 <div
   className="fixed top-0 left-0 w-full bg-black/60 backdrop-blur-md z-50 shadow-xl font-serif"
@@ -133,8 +136,9 @@ export default function Portfolio() {
   </div>
 </div>
 
-{/* Spacer to prevent content hiding behind fixed navbar */}
-<div className="h-14"></div>
+    <div className="relative z-10">
+      {/* Spacer to prevent content hiding behind fixed navbar */}
+      <div className="h-14"></div>
 
       {/* Hero Section */}
       <section className="container mx-auto flex flex-col items-center justify-center p-12 text-center font-mono">
@@ -659,6 +663,7 @@ export default function Portfolio() {
     © 2025 Yashwin. All Rights Reserved.
   </p>
 </footer>
+    </div>
 </div>
   );
 }
