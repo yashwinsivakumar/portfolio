@@ -358,7 +358,8 @@ export default function Portfolio() {
             href={proj.pdf}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block w-fit mx-auto bg-purple-500 text-white px-3 py-1 rounded-xl hover:bg-purple-600 font-medium text-sm font-sans"
+            className="inline-block w-fit mx-auto bg-purple-800 text-white px-3 py-1 rounded-xl shadow-lg hover:bg-purple-900 transition font-medium tracking-wide font-serif shadow-purple-500/70 hover:shadow-purple-600/90 text-xs"
+            style={{ boxShadow: "0 0 15px 3px rgba(76, 36, 119, 1)" }}
           >
             View Project
           </a>
@@ -478,20 +479,23 @@ export default function Portfolio() {
           key={idx}
           whileHover={{ scale: 1.03, y: -5 }}
           transition={{ duration: 0.3 }}
-          className="bg-black rounded-3xl border border-purple-500 p-6 flex flex-col items-center text-center shadow-[0_0_6px_rgba(128,0,128,0.5)]"
+          className="bg-black rounded-3xl border border-purple-500 p-6 flex flex-col items-center justify-between text-center shadow-[0_0_6px_rgba(128,0,128,0.5)]"
         >
-          <img
-            src={cert.icon}
-            alt={`${cert.title} icon`}
-            className="w-20 h-20 object-contain rounded-full border border-purple-400 p-2 mb-4"
-          />
-          <h4 className="text-lg font-semibold mb-1 tracking-wide text-purple-400">{cert.title}</h4>
-          <p className="mb-3 font-light text-pink-200 text-sm italic">Issued by {cert.org}</p>
+          <div className="flex flex-col items-center w-full">
+            <img
+              src={cert.icon}
+              alt={`${cert.title} icon`}
+              className="w-20 h-20 object-contain rounded-full border border-purple-400 p-2 mb-4"
+            />
+            <h4 className="text-lg font-semibold mb-1 tracking-wide text-purple-400">{cert.title}</h4>
+            <p className="mb-3 font-light text-pink-200 text-sm italic">Issued by {cert.org}</p>
+          </div>
           <a
             href={cert.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-purple-400 hover:text-pink-400 font-medium text-sm transition duration-300"
+            className="inline-block w-fit mx-auto bg-purple-800 text-white px-3 py-1 rounded-xl shadow-lg hover:bg-purple-900 transition font-medium tracking-wide font-serif shadow-purple-500/70 hover:shadow-purple-600/90 text-xs"
+            style={{ boxShadow: "0 0 15px 3px rgba(76, 36, 119, 1)" }}
           >
             View Certificate
           </a>
@@ -547,7 +551,8 @@ export default function Portfolio() {
         />
         <button
           type="submit"
-          className="bg-purple-600 text-white px-6 py-2 rounded-full shadow hover:bg-purple-700 transition font-medium font-serif"
+          className="bg-purple-800 text-white px-5 py-1.5 rounded-full shadow-lg hover:bg-purple-900 transition font-medium tracking-wide font-serif shadow-purple-500/70 hover:shadow-purple-600/90 text-sm"
+          style={{ boxShadow: "0 0 15px 3px rgba(76, 36, 119, 1)" }}
         >
           Send
         </button>
