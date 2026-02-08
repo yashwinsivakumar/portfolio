@@ -1,9 +1,26 @@
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import { SiJavascript, SiPython, SiC, SiReact, SiTailwindcss, SiGithub, SiGit, SiHtml5, SiCss3, SiLaravel, SiBootstrap, SiMysql, SiPhpmyadmin, SiWordpress, SiVercel, SiVite, SiMinutemailer} from "react-icons/si";
-import { FaJava, FaLinkedin, FaInstagram, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt,FaNodeJs } from "react-icons/fa";
-import { VscCode } from "react-icons/vsc";
+import { SiGithub, SiPhpmyadmin, SiVercel } from "react-icons/si";
+import { FaLinkedin, FaInstagram, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
+import {
+  JavascriptOriginal,
+  JavaOriginal,
+  PythonOriginal,
+  COriginal,
+  Html5Original,
+  Css3Original,
+  ReactOriginal,
+  TailwindcssOriginal,
+  WordpressOriginal,
+  FlutterOriginal,
+  LaravelOriginal,
+  MysqlOriginal,
+  VscodeOriginal,
+  GitOriginal,
+  NodejsOriginal,
+  VitejsOriginal
+} from "devicons-react";
 import { Typewriter } from "react-simple-typewriter";
 import emailjs from "@emailjs/browser";
 import ParticleBackground from "./components/ParticleBackground";
@@ -431,10 +448,10 @@ export default function Portfolio() {
       <div className="bg-black rounded-3xl border border-purple-500 p-6 shadow-[0_0_6px_rgba(128,0,128,0.4)]">
         <h4 className="text-xl font-semibold mb-6 text-center text-purple-400 font-serif">Languages</h4>
         <div className="flex flex-col gap-3 font-mono">
-          <div className="flex items-center gap-3"><SiJavascript className="text-yellow-400" /> JavaScript</div>
-          <div className="flex items-center gap-3"><FaJava className="text-red-500" /> Java</div>
-          <div className="flex items-center gap-3"><SiPython className="text-blue-400" /> Python</div>
-          <div className="flex items-center gap-3"><SiC className="text-cyan-400" /> C</div>
+          <div className="flex items-center gap-3"><JavascriptOriginal size={20} /> JavaScript</div>
+          <div className="flex items-center gap-3"><JavaOriginal size={20} /> Java</div>
+          <div className="flex items-center gap-3"><PythonOriginal size={20} /> Python</div>
+          <div className="flex items-center gap-3"><COriginal size={20} /> C</div>
         </div>
       </div>
 
@@ -442,12 +459,12 @@ export default function Portfolio() {
       <div className="bg-black rounded-3xl border border-purple-500 p-6 shadow-[0_0_6px_rgba(128,0,128,0.4)]">
         <h4 className="text-xl font-semibold mb-6 text-center text-purple-400 font-serif">Front-End</h4>
         <div className="flex flex-col gap-3 font-mono">
-          <div className="flex items-center gap-3"><SiHtml5 className="text-orange-500" /> HTML</div>
-          <div className="flex items-center gap-3"><SiCss3 className="text-blue-500" /> CSS</div>
-          <div className="flex items-center gap-3"><SiReact className="text-cyan-400" /> React</div>
-          <div className="flex items-center gap-3"><SiTailwindcss className="text-sky-400" /> Tailwind CSS</div>
-          <div className="flex items-center gap-3"><SiBootstrap className="text-purple-400" /> Bootstrap</div>
-          <div className="flex items-center gap-3"><SiWordpress className="text-blue-600" /> WordPress</div>
+          <div className="flex items-center gap-3"><Html5Original size={20} /> HTML</div>
+          <div className="flex items-center gap-3"><Css3Original size={20} /> CSS</div>
+          <div className="flex items-center gap-3"><ReactOriginal size={20} /> React</div>
+          <div className="flex items-center gap-3"><TailwindcssOriginal size={20} /> Tailwind CSS</div>
+          <div className="flex items-center gap-3"><WordpressOriginal size={20} /> WordPress</div>
+          <div className="flex items-center gap-3"><FlutterOriginal size={20} /> Flutter</div>
         </div>
       </div>
 
@@ -455,8 +472,8 @@ export default function Portfolio() {
       <div className="bg-black rounded-3xl border border-purple-500 p-6 shadow-[0_0_6px_rgba(128,0,128,0.4)]">
         <h4 className="text-xl font-semibold mb-6 text-center text-purple-400 font-serif">Back-End</h4>
         <div className="flex flex-col gap-3 font-mono">
-          <div className="flex items-center gap-3"><SiLaravel className="text-red-400" /> Laravel</div>
-          <div className="flex items-center gap-3"><SiMysql className="text-yellow-400" /> MySQL</div>
+          <div className="flex items-center gap-3"><LaravelOriginal size={20} /> Laravel</div>
+          <div className="flex items-center gap-3"><MysqlOriginal size={20} /> MySQL</div>
           <div className="flex items-center gap-3"><SiPhpmyadmin className="text-orange-300" /> PHPMyAdmin</div>
         </div>
       </div>
@@ -465,13 +482,12 @@ export default function Portfolio() {
       <div className="bg-black rounded-3xl border border-purple-500 p-6 shadow-[0_0_6px_rgba(128,0,128,0.4)]">
         <h4 className="text-xl font-semibold mb-6 text-center text-purple-400 font-serif">Tools</h4>
         <div className="flex flex-col gap-3 font-mono">
-          <div className="flex items-center gap-3"><VscCode className="text-blue-400" /> VS Code</div>
-          <div className="flex items-center gap-3"><SiGithub className="text-gray-300" /> GitHub</div>
-          <div className="flex items-center gap-3"><SiGit className="text-red-400" /> Git</div>
+          <div className="flex items-center gap-3"><VscodeOriginal size={20} /> VS Code</div>
+          <div className="flex items-center gap-3"><SiGithub className="text-white" /> GitHub</div>
+          <div className="flex items-center gap-3"><GitOriginal size={20} /> Git</div>
           <div className="flex items-center gap-3"><SiVercel className="text-white" /> Vercel</div>
-          <div className="flex items-center gap-3"><FaNodeJs className="text-green-400" /> Node.js</div>
-          <div className="flex items-center gap-3"><SiVite className="text-yellow-400" /> Vite</div>
-          <div className="flex items-center gap-3"><SiMinutemailer className="text-pink-400" /> EmailJS</div>
+          <div className="flex items-center gap-3"><NodejsOriginal size={20} /> Node.js</div>
+          <div className="flex items-center gap-3"><VitejsOriginal size={20} /> Vite</div>
         </div>
       </div>
 
@@ -505,6 +521,13 @@ export default function Portfolio() {
           img: "/projects/mozhi.png",
           pdf: "https://mozhii.online/",
           tech: ["Python", "TensorFlow", "HuggingFace"],
+        },
+        {
+          title: "Mozhii.AI Mobile App",
+          desc: "Frontend mobile application for Mozhii.AI built using Flutter, based on a Figma UI design, currently under active development.",
+          img: "/projects/Mozhii_mobile.png",
+          pdf: "https://github.com/Mozhii-LLM/Mobile/blob/main/README.md/",
+          tech: ["Flutter", "Dart"],
         },
         {
           title: "Personal Portfolio",
