@@ -547,7 +547,7 @@ export default function Portfolio() {
           title: "Project Task Manager",
           desc: "A Task Manager Application built with JSON and Tkinter GUI.",
           img: "/projects/taskmanager.png",
-          pdf: "/projects/Task Manager.pdf",
+          pdf: "/projects/Task_Manager.pdf",
           tech: ["Python", "Tkinter", "JSON"],
         },
         
