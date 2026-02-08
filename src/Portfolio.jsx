@@ -14,6 +14,207 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0 }
 };
 
+// Image Carousel Component for Experience Section
+function ImageCarousel({ images, title }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+
+  // Create extended images array with first image at end for seamless loop
+  const extendedImages = [...images, images[0]];
+
+  // Minimum swipe distance
+  const minSwipeDistance = 50;
+
+  // Auto-advance every 2 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => prev + 1);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  // Handle seamless loop - when reaching the duplicated first image, reset to actual first
+  useEffect(() => {
+    if (currentIndex === images.length) {
+      // Wait for transition to complete, then instantly reset
+      const timeout = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(0);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+    // Re-enable transitions after reset
+    if (!isTransitioning && currentIndex === 0) {
+      const timeout = setTimeout(() => {
+        setIsTransitioning(true);
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, images.length, isTransitioning]);
+
+  const goToNext = () => {
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const goToPrev = () => {
+    setIsTransitioning(true);
+    if (currentIndex === 0) {
+      // Jump to last image instantly, then animate
+      setIsTransitioning(false);
+      setCurrentIndex(images.length);
+      setTimeout(() => {
+        setIsTransitioning(true);
+        setCurrentIndex(images.length - 1);
+      }, 50);
+    } else {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+    setIsPaused(true);
+    setIsDragging(true);
+  };
+
+  const onTouchMove = (e) => {
+    if (!touchStart) return;
+    const currentTouch = e.targetTouches[0].clientX;
+    setTouchEnd(currentTouch);
+    setDragOffset(currentTouch - touchStart);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false);
+      setDragOffset(0);
+      setTimeout(() => setIsPaused(false), 3000);
+      return;
+    }
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      goToNext();
+    } else if (isRightSwipe) {
+      goToPrev();
+    }
+    
+    setIsDragging(false);
+    setDragOffset(0);
+    setTimeout(() => setIsPaused(false), 3000);
+  };
+
+  // Mouse events for desktop
+  const onMouseDown = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.clientX);
+    setIsPaused(true);
+    setIsDragging(true);
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDragging || !touchStart) return;
+    setTouchEnd(e.clientX);
+    setDragOffset(e.clientX - touchStart);
+  };
+
+  const onMouseUp = () => {
+    if (!touchStart) {
+      setIsDragging(false);
+      return;
+    }
+    
+    if (touchEnd) {
+      const distance = touchStart - touchEnd;
+      const isLeftSwipe = distance > minSwipeDistance;
+      const isRightSwipe = distance < -minSwipeDistance;
+      
+      if (isLeftSwipe) {
+        goToNext();
+      } else if (isRightSwipe) {
+        goToPrev();
+      }
+    }
+    
+    setIsDragging(false);
+    setDragOffset(0);
+    setTouchStart(null);
+    setTouchEnd(null);
+    setTimeout(() => setIsPaused(false), 3000);
+  };
+
+  const onMouseLeave = () => {
+    if (isDragging) {
+      onMouseUp();
+    }
+  };
+
+  // Get actual display index for dots (wrap around)
+  const displayIndex = currentIndex % images.length;
+
+  return (
+    <div 
+      className="w-full h-40 md:h-56 mb-4 overflow-hidden rounded-2xl relative cursor-grab active:cursor-grabbing select-none"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseLeave}
+    >
+      <div 
+        className="flex h-full"
+        style={{ 
+          transform: `translateX(calc(-${currentIndex * 100}% + ${isDragging ? dragOffset : 0}px))`,
+          transition: isDragging || !isTransitioning ? 'none' : 'transform 0.5s ease-out'
+        }}
+      >
+        {extendedImages.map((img, imgIdx) => (
+          <img
+            key={imgIdx}
+            src={img}
+            alt={`${title} image ${imgIdx + 1}`}
+            className="w-full h-full object-cover flex-shrink-0"
+            draggable="false"
+          />
+        ))}
+      </div>
+      
+      {/* Dot indicators */}
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => {
+              setIsTransitioning(true);
+              setCurrentIndex(idx);
+              setIsPaused(true);
+              setTimeout(() => setIsPaused(false), 3000);
+            }}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              idx === displayIndex ? 'bg-purple-400 w-4' : 'bg-white/50 hover:bg-white/80'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Portfolio() {
   const [scrollY, setScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -110,7 +311,7 @@ export default function Portfolio() {
   >
     <ul className="flex flex-col gap-2 text-base font-medium px-4">
       {/* Navigation Links */}
-      {["about", "skills", "projects", "Education", "Achievements", "contact"].map((section) => (
+      {["about", "skills", "projects", "Experience", "Education", "Achievements", "contact"].map((section) => (
         <li key={section}>
           <a
             href={`#${section}`}
@@ -299,18 +500,11 @@ export default function Portfolio() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
       {[
         {
-          title: "Project Task Manager",
-          desc: "A Task Manager Application built with JSON and Tkinter GUI.",
-          img: "/projects/taskmanager.png",
-          pdf: "/projects/Task Manager.pdf",
-          tech: ["Python", "Tkinter", "JSON"],
-        },
-        {
-          title: "Project SDG 3 - Group Project",
-          desc: "Responsive web pages promoting awareness and volunteering opportunities for SDG 3. (Splash screen & Volunteer page)",
-          img: "/projects/sdg.png",
-          pdf: "/projects/SDG_website.pdf",
-          tech: ["HTML", "CSS", "JavaScript"],
+          title: "Mozhii.AI",
+          desc: "Sri Lanka’s first Tamil-focused Large Language Model, currently in development, aimed at enabling intelligent Tamil language understanding, generation, and AI-powered applications.",
+          img: "/projects/mozhi.png",
+          pdf: "https://mozhii.online/",
+          tech: ["Python", "TensorFlow", "HuggingFace"],
         },
         {
           title: "Personal Portfolio",
@@ -320,12 +514,20 @@ export default function Portfolio() {
           tech: ["React", "Tailwind CSS", "Framer Motion", "Vercel"],
         },
         {
-          title: "Mozhii.AI",
-          desc: "Sri Lanka’s first Tamil-focused Large Language Model, currently in development, aimed at enabling intelligent Tamil language understanding, generation, and AI-powered applications.",
-          img: "/projects/mozhi.png",
-          pdf: "https://mozhii.online/",
-          tech: ["Python", "TensorFlow", "HuggingFace"],
+          title: "Project SDG 3 - Group Project",
+          desc: "Responsive web pages promoting awareness and volunteering opportunities for SDG 3. (Splash screen & Volunteer page)",
+          img: "/projects/sdg.png",
+          pdf: "/projects/SDG_website.pdf",
+          tech: ["HTML", "CSS", "JavaScript"],
         },
+        {
+          title: "Project Task Manager",
+          desc: "A Task Manager Application built with JSON and Tkinter GUI.",
+          img: "/projects/taskmanager.png",
+          pdf: "/projects/Task Manager.pdf",
+          tech: ["Python", "Tkinter", "JSON"],
+        },
+        
       ].map((proj, idx) => (
         <motion.div
           key={idx}
@@ -363,6 +565,68 @@ export default function Portfolio() {
           >
             View Project
           </a>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</motion.section>
+
+
+
+{/* Experience Section */}
+<motion.section
+  id="Experience"
+  className="p-6 sm:p-12 text-center font-serif"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.3 }}
+  variants={fadeInUp}
+  transition={{ duration: 0.8 }}
+>
+  <h3 className="text-3xl font-extrabold mb-10 text-center tracking-wide text-pink-400 inline-block relative after:content-[''] after:block after:w-1/2 after:mx-auto after:border-b-2 after:border-white after:mt-1">
+    Experience
+  </h3>
+
+  {/* Outer Common Card */}
+  <div className="bg-black/70 rounded-3xl border-2 border-purple-500 p-6 sm:p-8 mx-auto w-full sm:w-11/12 md:w-4/5 shadow-[0_0_8px_rgba(128,0,128,0.6)]">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
+      {[
+        {
+          title: "IX25",
+          role: "Designer",
+          duration: "Dec 2025",
+          description: "Volunteered with the IX25 team, contributing to design work and supporting event logistics and coordination.",
+          images: [
+            "/Experience/IX25.png",
+            "/Experience/IX251.jpeg",
+            "/Experience/IX252.jpeg",
+          ],
+        },
+        {
+          title: "Rotaractor",
+          role: "Club Service Director / Sergeant at Arms",
+          duration: "Jun 2025 - Jun 2026",
+          description: "Served as Professional Development Director,Recognized as Dedicated Rotaractor for the year 2024-2025.currently serving as Club Service Director for Rotaract Club of Matale.",
+          images: [
+            "/Experience/Rotaractor.jpeg",
+            "/Experience/Rotaractor1.jpeg",
+          ],
+        },
+      ].map((exp, idx) => (
+        <motion.div
+          key={idx}
+          whileHover={{ scale: 1.03, y: -5 }}
+          transition={{ duration: 0.3 }}
+          className="bg-black rounded-3xl border border-purple-500 p-5 shadow-[0_0_6px_rgba(128,0,128,0.5)] flex flex-col"
+        >
+          {/* Image Carousel */}
+          <ImageCarousel images={exp.images} title={exp.title} />
+
+          {/* Experience Details */}
+          <h4 className="text-lg font-semibold mb-1 tracking-wide text-purple-400 font-serif">{exp.title}</h4>
+          <p className="text-pink-300 text-sm font-medium mb-1">{exp.role}</p>
+          <p className="text-purple-300 text-xs mb-3 italic">{exp.duration}</p>
+          <p className="text-purple-200 text-sm font-mono leading-relaxed">{exp.description}</p>
         </motion.div>
       ))}
     </div>
@@ -649,9 +913,11 @@ export default function Portfolio() {
     <span>|</span>
     <a href="#projects" className="hover:text-pink-400 transition">Projects</a>
     <span>|</span>
-    <a href="#Education" className="hover:text-pink-400 transition">Education</a>
+    <a href="#Experience" className="hover:text-pink-400 transition">Exp</a>
     <span>|</span>
-    <a href="#Achievements" className="hover:text-pink-400 transition">Achievements</a>
+    <a href="#Education" className="hover:text-pink-400 transition">Edu</a>
+    <span>|</span>
+    <a href="#Achievements" className="hover:text-pink-400 transition">Certs</a>
     <span>|</span>
     <a href="#contact" className="hover:text-pink-400 transition">Contact</a>
   </div>
